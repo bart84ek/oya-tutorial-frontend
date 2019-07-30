@@ -1,10 +1,16 @@
 Project: TutFront
 
+Values:
+  port: 3000
+  api: 'http://localhost:4000'
+
 install: |
   npm install
 
 start: |
-  node index.js
+  api=${Oya[api]}
+  port=${Oya[port]}
+  API=$api PORT=$port node index.js
 
 test: |
   ./node_modules/mocha/bin/mocha
