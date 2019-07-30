@@ -7,10 +7,18 @@ Values:
 install: |
   npm install
 
+test: |
+  ./node_modules/mocha/bin/mocha
+
 start: |
   api=${Oya[api]}
   port=${Oya[port]}
   API=$api PORT=$port node index.js
 
-test: |
-  ./node_modules/mocha/bin/mocha
+onPush: |
+  oya run install
+  oya run test
+
+onMergeToMaster: |
+  oya run install
+  # oya run deploy
