@@ -1,8 +1,14 @@
 Project: TutFront
+Require:
+  github.com/tooploox/oya-packs/docker: v0.0.7
+Import:
+  docker: github.com/tooploox/oya-packs/docker
 
 Values:
   port: 3000
   api: 'http://localhost:4000'
+  docker:
+    image: 'tut-front'
 
 install: |
   npm install
@@ -11,8 +17,8 @@ test: |
   ./node_modules/mocha/bin/mocha
 
 start: |
-  api=${Oya[api]}
-  port=${Oya[port]}
+  api=${API:-${Oya[api]}}
+  port=${PORT:-${Oya[port]}}
   API=$api PORT=$port node index.js
 
 onPush: |
