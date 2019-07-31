@@ -17,6 +17,8 @@ jobs:
       - run: curl https://oya.sh/get | bash
       - persist_to_workspace:
           root: .
+          paths:
+            - /usr/local/bin
 
   onPush:
     <<: *defaults
