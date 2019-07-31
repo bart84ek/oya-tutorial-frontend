@@ -14,7 +14,7 @@ jobs:
           keys:
             - oya
       - run: apt-get update && apt-get install -y wget curl
-      - run: wget https://github.com/mozilla/sops/releases/download/3.3.1/sops_3.3.1_amd64.deb && dpkg -i sops_3.3.1_amd64.deb
+      - run: wget https://github.com/mozilla/sops/releases/download/3.3.1/sops_3.3.1_amd64.deb && sudo dpkg -i sops_3.3.1_amd64.deb
       - run: curl https://oya.sh/get | bash
       - save_cache:
           key: oya
