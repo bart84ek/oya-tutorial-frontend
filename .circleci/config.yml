@@ -10,22 +10,23 @@ jobs:
   oya_dependencies:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/oya-project
-      - run: wget https://github.com/tooploox/oya/releases/download/v0.0.15/oya_v0.0.15_linux_amd64.gz
-      - run: gunzip oya_v0.0.15_linux_amd64.gz && mv oya_v0.0.15_linux_amd64 oya
-      - run: chmod +x oya
-      - run: ./oya tasks
-      - persist_to_workspace:
-          root: .
-          paths:
+      - restore_cache:
+          keys:
             - oya
-            - .oya
+      - run: apt-get update && apt-get install -y wget curl
+      - run: wget https://github.com/mozilla/sops/releases/download/3.3.1/sops_3.3.1_amd64.deb && dpkg -i sops_3.3.1_amd64.deb
+      - run: curl https://oya.sh/get | bash
+      - save_cache:
+          key: oya
+          paths:
+            - /usr/local/bin
 
   onPush:
     <<: *defaults
     steps:
+      - restore_cache:
+          keys:
+            - oya
       - checkout
       - attach_workspace:
           at: ~/oya-project
@@ -35,6 +36,9 @@ jobs:
   onMergeToMaster:
     <<: *defaults
     steps:
+      - restore_cache:
+          keys:
+            - oya
       - checkout
       - attach_workspace:
           at: ~/oya-project
