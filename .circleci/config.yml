@@ -11,7 +11,7 @@ jobs:
   oya_dependencies:
     <<: *defaults
     steps:
-      - run: sudo apt-cache update && sudo apt-get install -y wget
+      - run: apt-cache update && apt-get install -y wget
       - run: wget https://github.com/tooploox/oya/releases/download/v0.0.15/oya_v0.0.15_linux_amd64.gz
       - run: gunzip oya_v0.0.15_linux_amd64.gz && mv oya_v0.0.15_linux_amd64 oya
       - run: chmod +x oya
