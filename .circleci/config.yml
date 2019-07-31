@@ -10,14 +10,14 @@ jobs:
   oya_dependencies:
     <<: *defaults
     steps:
-      # - restore_cache:
-      #     keys:
-      #       - oya
+      - restore_cache:
+          keys:
+            - v1-oya
       - run: sudo apt-get update && sudo apt-get install -y wget curl
       - run: wget https://github.com/mozilla/sops/releases/download/3.3.1/sops_3.3.1_amd64.deb && sudo dpkg -i sops_3.3.1_amd64.deb
       - run: curl https://oya.sh/get | bash
       - save_cache:
-          key: oya
+          key: v1-oya
           paths:
             - /usr/local/bin/oya
 
