@@ -25,10 +25,15 @@ start: |
   port=${PORT:-${Oya[port]}}
   API=$api PORT=$port node index.js
 
+release: |
+  # build docker image
+  # tag docker image
+  # push docker image
+
 onPush: |
-  oya run install
-  oya run test
+  ./oya run install
+  ./oya run test
 
 onMergeToMaster: |
-  oya run install
-  # oya run deploy
+  ./oya run install
+  ./oya run release
