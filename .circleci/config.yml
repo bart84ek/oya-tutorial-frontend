@@ -4,24 +4,19 @@ defaults: &defaults
     - image: circleci/ruby:2.5-node-browsers
       environment:
         OYA_VER: "oya version v0.0.15"
+        PATH: ~/.oya/bin:$PATH
 
 version: 2
 jobs:
   oya_dependencies:
     <<: *defaults
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/oya-project
       - run: wget https://github.com/tooploox/oya/releases/download/v0.0.15/oya_v0.0.15_linux_amd64.gz
       - run: gunzip oya_v0.0.15_linux_amd64.gz && mv oya_v0.0.15_linux_amd64 oya
       - run: chmod +x oya
-      - run: ./oya tasks
-      - persist_to_workspace:
-          root: .
-          paths:
-            - oya
-            - .oya
+      - run: mkdir -p ~/.oya/bin
+      - run: mv oya ~/.oya/bin
+      - run: oya version
 
   onPush:
     <<: *defaults
