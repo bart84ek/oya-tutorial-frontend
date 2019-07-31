@@ -1,0 +1,49 @@
+defaults: &defaults
+  working_directory: ~/oya-project
+  docker:
+    - image: circleci/ruby:2.5-node-browsers
+      environment:
+        OYA_VER: "oya version v0.0.15"
+
+version: 2
+jobs:
+  oya_dependencies:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/oya-project
+      - run: wget https://github.com/mozilla/sops/releases/download/3.3.1/sops_3.3.1_amd64.deb && sudo dpkg -i sops_3.3.1_amd64.deb
+      - run: curl https://oya.sh/get | bash
+
+
+  onPush:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/oya-project
+      - run: ./oya run onPush
+
+
+  onMergeToMaster:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/oya-project
+      - run: ./oya run onMergeToMaster
+
+workflows:
+  version: 2
+  build-test-and-deploy:
+    jobs:
+      - oya_dependencies
+      - onPush:
+          requires:
+            - oya_dependencies
+
+      - onMergeToMaster:
+          requires:
+            - oya_dependencies
+
