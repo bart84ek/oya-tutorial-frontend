@@ -19,7 +19,7 @@ jobs:
       - save_cache:
           key: oya
           paths:
-            - /usr/local/bin
+            - /usr/local/bin/oya
 
   onPush:
     <<: *defaults
