@@ -1,5 +1,7 @@
 defaults: &defaults
   working_directory: ~/oya-project
+  environment:
+    BASH_ENV: ~/.oya/.bashrc
   docker:
     - image: circleci/ruby:2.5-node-browsers
       environment:
@@ -17,7 +19,7 @@ jobs:
       - run: sudo dpkg -i sops_3.3.1_amd64.deb
       - run: curl https://oya.sh/get | bash
       - run: mkdir -p ~/.oya/bin && sudo mv /usr/local/bin/oya ~/.oya/bin
-      - run: cat $BASH_ENV
+      - run: echo $BASH_ENV
       - run: oya --version
       - save_cache:
           key: oya-cache-v1
