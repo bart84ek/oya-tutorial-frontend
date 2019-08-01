@@ -17,7 +17,11 @@ jobs:
       - run: chmod +x oya
       - run: mkdir -p ~/.oya/bin
       - run: mv oya ~/.oya/bin
-      - run: export PATH=~/.oya/bin:$PATH
+      - run: export PATH="~/.oya/bin:$PATH"
+      - run: ls -la
+      - run: pwd
+      - run: ls -la ~/.oya/
+      - run: ls -la ~/.oya/bin
       - run: oya version
 
   onPush:
