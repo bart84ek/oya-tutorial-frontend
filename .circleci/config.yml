@@ -17,8 +17,6 @@ jobs:
       - run: sudo dpkg -i ~/.oya/sops_3.3.1_amd64.deb
       - run: curl https://oya.sh/get | bash
       - run: sudo mv /usr/local/bin/oya ~/.oya/bin
-      - run: sops --version
-      - run: oya --version
       - save_cache:
           key: oya-cache-v1-{{ arch }}-{{ .Branch }}
           paths:
@@ -38,7 +36,6 @@ jobs:
       - attach_workspace:
           at: ~/oya-project
       - run: oya run onPush
-
 
   onMergeToMaster:
     <<: *defaults
