@@ -17,10 +17,17 @@ jobs:
       - run: curl https://oya.sh/get | bash
       - run: mkdir -p ~/.oya/bin && sudo mv /usr/local/bin/oya ~/.oya/bin
       - run: oya --version
+      - save_cache:
+          key: oya-cache-v1
+          paths:
+            - ~/.oya/bin
 
   onPush:
     <<: *defaults
     steps:
+      - restore_cache:
+          keys:
+            - oya-cache-v1
       - checkout
       - attach_workspace:
           at: ~/oya-project
