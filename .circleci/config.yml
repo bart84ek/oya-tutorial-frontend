@@ -11,13 +11,11 @@ jobs:
     <<: *defaults
     steps:
       - run: echo 'export PATH=~/.oya/bin/:$PATH' >> $BASH_ENV
-      # - run: echo 'export PATH=/home/circleci/.oya/bin/:$PATH' >> $BASH_ENV
-      - run: sudo apt-get update && sudo apt-get install -y wget
-      - run: wget https://github.com/tooploox/oya/releases/download/v0.0.15/oya_v0.0.15_linux_amd64.gz
-      - run: gunzip oya_v0.0.15_linux_amd64.gz && mv oya_v0.0.15_linux_amd64 oya
-      - run: chmod +x oya
-      - run: mkdir -p ~/.oya/bin
-      - run: mv oya ~/.oya/bin
+      - run: sudo apt-get update && sudo apt-get install -y wget curl
+      - run: wget https://github.com/mozilla/sops/releases/download/3.3.1/sops_3.3.1_amd64.deb
+      - run: sudo dpkg -i sops_3.3.1_amd64.deb
+      - run: curl https://oya.sh/get | bash
+      - run: mv /usr/local/bin/oya ~/.oya/bin
       - run: oya --version
 
   onPush:
@@ -26,7 +24,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/oya-project
-      - run: ./oya run onPush
+      - run: oya run onPush
 
 
   onMergeToMaster:
@@ -35,7 +33,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/oya-project
-      - run: ./oya run onMergeToMaster
+      - run: oya run onMergeToMaster
 
 workflows:
   version: 2

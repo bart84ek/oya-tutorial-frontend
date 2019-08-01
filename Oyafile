@@ -26,14 +26,15 @@ start: |
   API=$api PORT=$port node index.js
 
 release: |
+  echo "release"
   # build docker image
   # tag docker image
   # push docker image
 
 onPush: |
-  ./oya run install
-  ./oya run test
+  oya run install
+  oya run test
 
 onMergeToMaster: |
-  ./oya run install
-  ./oya run release
+  oya run install
+  oya run release
