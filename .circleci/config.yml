@@ -15,6 +15,7 @@ jobs:
       - run: sudo dpkg -i sops_3.3.1_amd64.deb
       - run: curl https://oya.sh/get | bash
       - run: mkdir -p ~/.oya/bin && sudo mv /usr/local/bin/oya ~/.oya/bin
+      - run: alias oya=~/.oya/bin/oya
       - run: oya --version
       - save_cache:
           key: oya-cache-v1
