@@ -15,7 +15,7 @@ jobs:
       - run: wget https://github.com/mozilla/sops/releases/download/3.3.1/sops_3.3.1_amd64.deb
       - run: sudo dpkg -i sops_3.3.1_amd64.deb
       - run: curl https://oya.sh/get | bash
-      - run: mkdir -p ~/.oya/bin && mv /usr/local/bin/oya ~/.oya/bin
+      - run: mkdir -p ~/.oya/bin && sudo mv /usr/local/bin/oya ~/.oya/bin
       - run: oya --version
 
   onPush:
