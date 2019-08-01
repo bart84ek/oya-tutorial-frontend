@@ -14,13 +14,12 @@ jobs:
       - run: wget https://github.com/mozilla/sops/releases/download/3.3.1/sops_3.3.1_amd64.deb
       - run: sudo dpkg -i sops_3.3.1_amd64.deb
       - run: curl https://oya.sh/get | bash
-      - run: sudo mv /usr/local/bin/oya ~/.oya/bin
+      - run: mkdir -p ~/.oya/bin && sudo mv /usr/local/bin/oya ~/.oya/bin
       - run: oya --version
       - save_cache:
           key: oya-cache-v1
           paths:
-            - ~/.oya/bin
-            - "$BASH_ENV"
+            - ~/.oya
 
   onPush:
     <<: *defaults
@@ -33,9 +32,6 @@ jobs:
           at: ~/oya-project
       - run: alias oya=~/.oya/bin/oya
       - run: ls -la ~/.oya/bin
-      - run: echo $PATH
-      - run: echo $BASH_ENV
-      - run: cat $BASH_ENV
       - run: oya run onPush
 
 
