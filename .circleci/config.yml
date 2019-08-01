@@ -24,6 +24,8 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/oya-project
+      - run: ls -la ~/.oya/
+      - run: echo $PATH
       - run: oya run onPush
 
 
