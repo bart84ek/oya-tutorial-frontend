@@ -4,25 +4,23 @@ defaults: &defaults
     - image: circleci/ruby:2.5-node-browsers
       environment:
         OYA_VER: "oya version v0.0.15"
-        BASH_ENV: ~/.bashrc
 
 version: 2
 jobs:
   oya_dependencies:
     <<: *defaults
     steps:
+      - run: echo 'export PATH=/home/circleci/.oya/bin/:$PATH' >> $BASH_ENV
       - run: sudo apt-get update && sudo apt-get install -y wget
       - run: wget https://github.com/tooploox/oya/releases/download/v0.0.15/oya_v0.0.15_linux_amd64.gz
       - run: gunzip oya_v0.0.15_linux_amd64.gz && mv oya_v0.0.15_linux_amd64 oya
       - run: chmod +x oya
       - run: mkdir -p ~/.oya/bin
       - run: mv oya ~/.oya/bin
-      - run: export PATH=/home/circleci/.oya/bin:$PATH
       - run: ls -la
       - run: pwd
       - run: ls -la ~/.oya/
       - run: ls -la ~/.oya/bin
-      - run: echo 'export PATH=~/.oya/bin/:$PATH' > $BASH_ENV
       - run: echo $PATH
       - run: oya version
 
