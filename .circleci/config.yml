@@ -1,7 +1,5 @@
 defaults: &defaults
   working_directory: ~/oya-project
-  environment:
-    BASH_ENV: ~/.oya/.bashrc
   docker:
     - image: circleci/ruby:2.5-node-browsers
       environment:
@@ -12,15 +10,11 @@ jobs:
   oya_dependencies:
     <<: *defaults
     steps:
-      - run: mkdir -p ~/.oya/bin
-      - run: touch $BASH_ENV && echo 'export PATH=~/.oya/bin/:$PATH' >> $BASH_ENV
-      # - run: echo 'export PATH=~/.oya/bin/:$PATH' >> $BASH_ENV
       - run: sudo apt-get update && sudo apt-get install -y wget curl
       - run: wget https://github.com/mozilla/sops/releases/download/3.3.1/sops_3.3.1_amd64.deb
       - run: sudo dpkg -i sops_3.3.1_amd64.deb
       - run: curl https://oya.sh/get | bash
       - run: sudo mv /usr/local/bin/oya ~/.oya/bin
-      - run: echo $BASH_ENV
       - run: oya --version
       - save_cache:
           key: oya-cache-v1
@@ -37,6 +31,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/oya-project
+      - run: alias oya=~/.oya/bin/oya
       - run: ls -la ~/.oya/bin
       - run: echo $PATH
       - run: echo $BASH_ENV
