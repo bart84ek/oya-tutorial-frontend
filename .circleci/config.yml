@@ -11,12 +11,12 @@ jobs:
     <<: *defaults
     steps:
       - run: echo 'export PATH=~/.oya/bin/:$PATH' >> $BASH_ENV
-      - run: sudo apt-get update && sudo apt-get install -y wget curl
+      - run: apt-get update && apt-get install -y wget curl
       - run: mkdir -p ~/.oya/bin
       - run: cd ~/.oya/ && wget https://github.com/mozilla/sops/releases/download/3.3.1/sops_3.3.1_amd64.deb
-      - run: sudo dpkg -i ~/.oya/sops_3.3.1_amd64.deb
+      - run: dpkg -i ~/.oya/sops_3.3.1_amd64.deb
       - run: curl https://oya.sh/get | bash
-      - run: sudo mv /usr/local/bin/oya ~/.oya/bin
+      - run: mv /usr/local/bin/oya ~/.oya/bin
       - save_cache:
           key: oya-cache-v1-{{ arch }}-{{ .Branch }}
           paths:
