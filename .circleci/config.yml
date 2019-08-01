@@ -22,7 +22,9 @@ jobs:
       - run: pwd
       - run: ls -la ~/.oya/
       - run: ls -la ~/.oya/bin
-      - run: oya version
+      - run: echo $PATH
+
+      - run: ~/.oya/bin/oya version
 
   onPush:
     <<: *defaults
