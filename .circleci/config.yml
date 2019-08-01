@@ -4,7 +4,7 @@ defaults: &defaults
     - image: circleci/ruby:2.5-node-browsers
       environment:
         OYA_VER: "oya version v0.0.15"
-        PATH: ~/.oya/bin:$PATH
+        # PATH: ~/.oya/bin:$PATH
 
 version: 2
 jobs:
