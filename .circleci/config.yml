@@ -21,6 +21,10 @@ jobs:
           key: oya-cache-v1-{{ arch }}-{{ .Branch }}
           paths:
             - ~/.oya
+      - checkout
+      - attach_workspace:
+          at: ~/oya-project
+      - run: oya run onPush
 
   onPush:
     <<: *defaults
@@ -60,8 +64,15 @@ workflows:
       - onPush:
           requires:
             - oya_dependencies
+          filters:
+            branches:
+              ignore:
+                - master
 
       - onMergeToMaster:
           requires:
             - oya_dependencies
-
+          filters:
+            branches:
+              only:
+                - master
