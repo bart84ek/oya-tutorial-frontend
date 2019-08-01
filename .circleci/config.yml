@@ -10,12 +10,12 @@ jobs:
   oya_dependencies:
     <<: *defaults
     steps:
+      - run: echo 'alias oya=~/.oya/bin/oya' >> $BASH_ENV
       - run: sudo apt-get update && sudo apt-get install -y wget curl
       - run: wget https://github.com/mozilla/sops/releases/download/3.3.1/sops_3.3.1_amd64.deb
       - run: sudo dpkg -i sops_3.3.1_amd64.deb
       - run: curl https://oya.sh/get | bash
       - run: mkdir -p ~/.oya/bin && sudo mv /usr/local/bin/oya ~/.oya/bin
-      - run: alias oya=~/.oya/bin/oya
       - run: oya --version
       - save_cache:
           key: oya-cache-v1
@@ -28,10 +28,10 @@ jobs:
       - restore_cache:
           keys:
             - oya-cache-v1
+      - run: echo 'alias oya=~/.oya/bin/oya' >> $BASH_ENV
       - checkout
       - attach_workspace:
           at: ~/oya-project
-      - run: alias oya=~/.oya/bin/oya
       - run: ls -la ~/.oya/bin
       - run: oya run onPush
 
