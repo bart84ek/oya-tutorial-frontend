@@ -20,7 +20,7 @@ jobs:
 
   onPush:
     <<: *defaults
-    step s:
+    steps:
       - checkout
       - attach_workspace:
           at: ~/oya-project
