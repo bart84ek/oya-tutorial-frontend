@@ -12,7 +12,7 @@ jobs:
   oya_dependencies:
     <<: *defaults
     steps:
-      - run: mkdir -p ~/.oya/bin && echo 'export PATH=~/.oya/bin/:$PATH' >> $BASH_ENV
+      - run: mkdir -p ~/.oya/bin && echo 'export PATH=~/.oya/bin/:$PATH' > $BASH_ENV
       # - run: echo 'export PATH=~/.oya/bin/:$PATH' >> $BASH_ENV
       - run: sudo apt-get update && sudo apt-get install -y wget curl
       - run: wget https://github.com/mozilla/sops/releases/download/3.3.1/sops_3.3.1_amd64.deb
