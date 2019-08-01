@@ -4,7 +4,7 @@ defaults: &defaults
     - image: circleci/ruby:2.5-node-browsers
       environment:
         OYA_VER: "oya version v0.0.15"
-        # PATH: ~/.oya/bin:$PATH
+        BASH_ENV: ~/.bashrc
 
 version: 2
 jobs:
@@ -22,9 +22,9 @@ jobs:
       - run: pwd
       - run: ls -la ~/.oya/
       - run: ls -la ~/.oya/bin
+      - run: echo 'export PATH=~/.oya/bin/:$PATH' >> $BASH_ENV
       - run: echo $PATH
-
-      - run: ~/.oya/bin/oya version
+      - run: oya version
 
   onPush:
     <<: *defaults
