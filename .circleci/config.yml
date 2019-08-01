@@ -35,7 +35,7 @@ jobs:
             - oya-cache-v1
       - run: |
           echo 'export PATH=~/.oya/bin/:$PATH' >> $BASH_ENV
-          sudo dpkg -i ~/.oya/sops_3.3.1_amd64.deb
+          dpkg -i ~/.oya/sops_3.3.1_amd64.deb
       - checkout
       - attach_workspace:
           at: ~/oya-project
@@ -50,7 +50,7 @@ jobs:
             - oya-cache-v1
       - run: |
           echo 'export PATH=~/.oya/bin/:$PATH' >> $BASH_ENV
-          sudo dpkg -i ~/.oya/sops_3.3.1_amd64.deb
+          dpkg -i ~/.oya/sops_3.3.1_amd64.deb
       - checkout
       - attach_workspace:
           at: ~/oya-project
