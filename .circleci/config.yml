@@ -22,7 +22,7 @@ jobs:
           paths:
             - ~/.oya
       - checkout
-      - run: echo -e "$PGP_KEY" | gpg --import
+      - run: echo $PGP_KEY | gpg --import
       - attach_workspace:
           at: ~/oya-project
       - run: oya run onPush
