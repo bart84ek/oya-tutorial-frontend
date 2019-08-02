@@ -26,8 +26,6 @@ start: |
   API=$api PORT=$port node index.js
 
 release: |
-  echo ${Oya[gcp_key]}
-  echo "release"
   export GCLOUD_SERVICE_KEY=${Oya[gcp_key]}
   gcloud auth list
   # build docker image
