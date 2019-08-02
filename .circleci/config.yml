@@ -18,7 +18,7 @@ jobs:
       - run: curl https://oya.sh/get | bash
       - run: mv /usr/local/bin/oya ~/.oya/bin
       - save_cache:
-          key: oya-cache-v1-{{ arch }}-{{ .Branch }}
+          key: oya-cache-v2-{{ arch }}-{{ .Branch }}
           paths:
             - ~/.oya
       - checkout
@@ -32,8 +32,8 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - oya-cache-v1-{{ arch }}-{{ .Branch }}
-            - oya-cache-v1
+            - oya-cache-v2-{{ arch }}-{{ .Branch }}
+            - oya-cache-v2
       - run: |
           echo 'export PATH=~/.oya/bin/:$PATH' >> $BASH_ENV
           dpkg -i ~/.oya/sops_3.3.1_amd64.deb
@@ -47,8 +47,8 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - oya-cache-v1-{{ arch }}-{{ .Branch }}
-            - oya-cache-v1
+            - oya-cache-v2-{{ arch }}-{{ .Branch }}
+            - oya-cache-v2
       - run: |
           echo 'export PATH=~/.oya/bin/:$PATH' >> $BASH_ENV
           dpkg -i ~/.oya/sops_3.3.1_amd64.deb
