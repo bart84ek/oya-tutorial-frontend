@@ -26,7 +26,8 @@ start: |
   API=$api PORT=$port node index.js
 
 release: |
-  export GCLOUD_SERVICE_KEY=${Oya[gcp_key]}
+  echo ${Oya[gcp_key]} > ${HOME}/gcp-key.json
+  gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
   gcloud auth configure-docker
   docker build -t frontend/app:$CIRCLE_BRANCH .
   # gcloud auth list
