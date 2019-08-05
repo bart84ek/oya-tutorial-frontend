@@ -45,6 +45,7 @@ jobs:
 
   onMergeToMaster:
     <<: *defaults
+    machine: true
     steps:
       - restore_cache:
           keys:
@@ -59,6 +60,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/oya-project
+      - setup_remote_docker
       - run: oya run onMergeToMaster
 
 workflows:
