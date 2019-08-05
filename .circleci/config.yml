@@ -57,6 +57,7 @@ jobs:
       - run: curl -sL https://deb.nodesource.com/setup_4.x | bash
       - run: apt-get install nodejs
       - checkout
+      - setup_remote_docker
       - attach_workspace:
           at: ~/oya-project
       - run: oya run onMergeToMaster
