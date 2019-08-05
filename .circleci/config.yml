@@ -45,7 +45,6 @@ jobs:
 
   onMergeToMaster:
     <<: *defaults
-    machine: true
     steps:
       - restore_cache:
           keys:
