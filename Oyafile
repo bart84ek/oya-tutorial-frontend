@@ -26,9 +26,9 @@ start: |
   API=$api PORT=$port node index.js
 
 release: |
-  docker --version
+  export GCLOUD_SERVICE_KEY=${Oya[gcp_key]}
+  gcloud auth configure-docker
   docker build -t frontend/app:$CIRCLE_BRANCH .
-  # export GCLOUD_SERVICE_KEY=${Oya[gcp_key]}
   # gcloud auth list
   # build docker image
   # tag docker image
@@ -39,5 +39,5 @@ onPush: |
   oya run test
 
 onMergeToMaster: |
-  oya run install
+  # oya run install
   oya run release
